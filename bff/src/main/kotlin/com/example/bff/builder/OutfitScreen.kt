@@ -10,7 +10,7 @@ class OutfitScreen :ScreenBuilder {
         return Screen(
                 child = Container(
                    children = listOf(
-                           Text(text= "Hello World")
+                           Text(text= "Hello World", textColor = "#FFFFF")
                    )
                 )
         )

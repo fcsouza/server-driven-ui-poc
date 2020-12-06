@@ -3,26 +3,46 @@ package com.example.bff.builder
 import br.com.zup.beagle.annotation.BeaglePreview
 import br.com.zup.beagle.builder.core.cornerRadius
 import br.com.zup.beagle.core.CornerRadius
+import br.com.zup.beagle.core.PositionType
 import br.com.zup.beagle.core.Style
 import br.com.zup.beagle.ext.applyStyle
+import br.com.zup.beagle.ext.unitPercent
+import br.com.zup.beagle.ext.unitReal
 import br.com.zup.beagle.ui.image
 import br.com.zup.beagle.ui.text
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.action.Alert
-import br.com.zup.beagle.widget.core.ImageContentMode
+import br.com.zup.beagle.widget.context.ContextData
+import br.com.zup.beagle.widget.context.expressionOf
+import br.com.zup.beagle.widget.core.*
 import br.com.zup.beagle.widget.layout.*
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ImagePath
 import br.com.zup.beagle.widget.ui.Text
+import com.example.bff.widget.ImageDetail
+import com.example.bff.widget.ImageType
 
 @BeaglePreview
 fun buildPreview() = OutfitScreen()
+
+data class ShirtData(
+    val id : String,
+    val price: String
+)
 
 class OutfitScreen :ScreenBuilder {
     override fun build(): Screen {
         return Screen(
             navigationBar = navBar(),
-            child = Text(text = "Hello World")
+            child = Container(
+                context = ContextData(
+                    id = "shirtData",
+                    value = ShirtData(id = "123", price = "$23.99")
+                ),
+                children = listOf(
+                    outfitImage()
+                )
+            )
         )
     }
 
@@ -61,7 +81,23 @@ class OutfitScreen :ScreenBuilder {
                     mode = ImageContentMode.CENTER
                 ).applyStyle(
                     Style(cornerRadius = CornerRadius(20.0))
+                ),
+                ImageDetail(
+                    value = expressionOf("@{shirtData.price}"),
+                    image = ImageType.RED_HEART
+                ).applyStyle(
+                    Style(
+                        padding = EdgeValue(bottom = 5.unitReal()),
+                        margin = EdgeValue(horizontal = 10.unitReal()),
+                        positionType = PositionType.ABSOLUTE
+                    )
                 )
+            )
+        ).applyStyle(
+            Style(
+                flex = Flex(justifyContent = JustifyContent.FLEX_END),
+                margin = EdgeValue(left = 18.unitReal(), right = 18.unitReal()),
+                size = Size(height = 65.unitPercent())
             )
         )
     }

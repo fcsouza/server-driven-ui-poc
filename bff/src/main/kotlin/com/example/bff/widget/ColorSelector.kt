@@ -1,6 +1,7 @@
 package com.example.bff.widget
 
 import br.com.zup.beagle.annotation.RegisterWidget
+import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.action.Action
 
 data class Color(
@@ -9,5 +10,6 @@ data class Color(
 )
 
 @RegisterWidget
-class ColorSelector {
-}
+class ColorSelector (
+    val colors : List<Color>
+) : Widget()

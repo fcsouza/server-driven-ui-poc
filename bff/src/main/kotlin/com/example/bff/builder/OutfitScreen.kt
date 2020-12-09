@@ -12,6 +12,7 @@ import br.com.zup.beagle.ui.image
 import br.com.zup.beagle.ui.text
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.action.Alert
+import br.com.zup.beagle.widget.action.SetContext
 import br.com.zup.beagle.widget.context.ContextData
 import br.com.zup.beagle.widget.context.expressionOf
 import br.com.zup.beagle.widget.core.*
@@ -19,6 +20,8 @@ import br.com.zup.beagle.widget.layout.*
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ImagePath
 import br.com.zup.beagle.widget.ui.Text
+import com.example.bff.widget.Color
+import com.example.bff.widget.ColorSelector
 import com.example.bff.widget.ImageDetail
 import com.example.bff.widget.ImageType
 
@@ -98,6 +101,17 @@ class OutfitScreen :ScreenBuilder {
                 flex = Flex(justifyContent = JustifyContent.FLEX_END),
                 margin = EdgeValue(left = 18.unitReal(), right = 18.unitReal()),
                 size = Size(height = 65.unitPercent())
+            )
+        )
+    }
+
+    private fun outfitColor() : Widget {
+        return ColorSelector(
+            colors = listOf(
+                Color(hex = "#FFFFF", onPress = SetContext("shirtData", path = "price", value = "$23.99")),
+                Color(hex = "#422332", onPress = SetContext("shirtData", path = "price", value = "$24.99")),
+                Color(hex = "#C0C0C", onPress = SetContext("shirtData", path = "price", value = "$25.99")),
+                Color(hex = "#DDDDD", onPress = SetContext("shirtData", path = "price", value = "$26.99"))
             )
         )
     }

@@ -12,18 +12,18 @@ import br.com.zup.beagle.ui.image
 import br.com.zup.beagle.ui.text
 import br.com.zup.beagle.widget.Widget
 import br.com.zup.beagle.widget.action.Alert
+import br.com.zup.beagle.widget.action.Navigate
+import br.com.zup.beagle.widget.action.Route
 import br.com.zup.beagle.widget.action.SetContext
 import br.com.zup.beagle.widget.context.ContextData
 import br.com.zup.beagle.widget.context.expressionOf
 import br.com.zup.beagle.widget.core.*
 import br.com.zup.beagle.widget.layout.*
+import br.com.zup.beagle.widget.ui.Button
 import br.com.zup.beagle.widget.ui.Image
 import br.com.zup.beagle.widget.ui.ImagePath
 import br.com.zup.beagle.widget.ui.Text
-import com.example.bff.widget.Color
-import com.example.bff.widget.ColorSelector
-import com.example.bff.widget.ImageDetail
-import com.example.bff.widget.ImageType
+import com.example.bff.widget.*
 
 @BeaglePreview
 fun buildPreview() = OutfitScreen()
@@ -43,7 +43,10 @@ class OutfitScreen :ScreenBuilder {
                     value = ShirtData(id = "123", price = "$23.99")
                 ),
                 children = listOf(
-                    outfitImage()
+                    outfitImage(),
+                    outfitColor(),
+                    outfitSize(),
+                    submitButton()
                 )
             )
         )
@@ -113,6 +116,26 @@ class OutfitScreen :ScreenBuilder {
                 Color(hex = "#C0C0C", onPress = SetContext("shirtData", path = "price", value = "$25.99")),
                 Color(hex = "#DDDDD", onPress = SetContext("shirtData", path = "price", value = "$26.99"))
             )
+        ).applyStyle(
+            Style(margin = EdgeValue(top = 10.unitReal()))
+        )
+    }
+
+    private fun outfitSize() : Widget {
+        return SizerSelector(
+            sizes = listOf(
+                SizeType.XS, SizeType.S, SizeType.M, SizeType.L, SizeType.XL,
+            )
+        ).applyStyle(
+            Style(margin = EdgeValue(top = 10.unitReal()))
+        )
+    }
+
+    private fun submitButton() : Widget {
+        return Button(
+            text = "Add to cart",
+            styleId = "customButton",
+            onPress = listOf(Navigate.PushView(Route.Remote("/detail")))
         )
     }
 }

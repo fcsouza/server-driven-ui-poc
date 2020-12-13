@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent = this.newServerDrivenIntent<AppBeagleActivity>(ScreenRequest("/screen"))
+        val intent = this.newServerDrivenIntent<AppBeagleActivity>(
+            screen()
+        )
         startActivity(intent)
         finish()
     }
